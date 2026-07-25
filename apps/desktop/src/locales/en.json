@@ -1,0 +1,1134 @@
+{
+	"common": {
+		"back": "Back",
+		"search": "Search",
+		"noResults": "No results found",
+		"settings": "Settings",
+		"general": "General",
+		"appearance": "Appearance",
+		"system": "System",
+		"light": "Light",
+		"dark": "Dark",
+		"select": "Select",
+		"cancel": "Cancel",
+		"save": "Save",
+		"delete": "Delete",
+		"confirm": "Confirm",
+		"yes": "Yes",
+		"no": "No",
+		"close": "Close",
+		"done": "Done",
+		"loading": "Loading...",
+		"error": "Error",
+		"success": "Success",
+		"warning": "Warning",
+		"info": "Info",
+		"reset": "Reset",
+		"size": "Size",
+		"position": "Position",
+		"full": "Full",
+		"update": "Update",
+		"comingSoon": "Coming Soon",
+		"off": "Off",
+		"on": "On",
+		"unknown": "Unknown"
+	},
+	"nav": {
+		"general": "General",
+		"shortcuts": "Shortcuts",
+		"recordings": "Recordings",
+		"screenshots": "Screenshots",
+		"integrations": "Integrations",
+		"license": "License",
+		"experimental": "Experimental",
+		"feedback": "Feedback",
+		"changelog": "Changelog",
+		"signIn": "Sign In",
+		"signOut": "Sign Out"
+	},
+	"app": {
+		"title": "Cap",
+		"subtitle": "Beautiful screen recordings, owned by you.",
+		"update": {
+			"title": "Update Cap",
+			"message": "Cap {{version}} is available. Update now?",
+			"ok": "Install Update",
+			"ignore": "Not Now"
+		}
+	},
+	"recording": {
+		"start": "Start Recording",
+		"stop": "Stop Recording",
+		"pause": "Pause",
+		"resume": "Resume",
+		"restart": "Restart",
+		"delete": "Delete Recording",
+		"saved": "Recording Saved",
+		"failed": "Recording Failed",
+		"preparing": "Preparing recording...",
+		"countdown": "Recording Countdown",
+		"countdownDescription": "Countdown before recording starts",
+		"instantModeMaxResolution": "Instant Mode Max Resolution",
+		"instantModeMaxResolutionDescription": "Maximum resolution for instant mode recording",
+		"mainWindowStartBehaviour": "Main Window Start Behaviour",
+		"mainWindowStartBehaviourDescription": "What the main window does when recording starts",
+		"studioFinishBehaviour": "Studio Finish Behaviour",
+		"studioFinishBehaviourDescription": "What happens when a studio recording finishes",
+		"afterDeleteBehaviour": "After Delete Behaviour",
+		"afterDeleteBehaviourDescription": "Should Cap reopen after deleting an in-progress recording?",
+		"deleteAfterUpload": "Delete Instant After Upload",
+		"deleteAfterUploadDescription": "Should Cap delete the instant recording from your device after uploading?",
+		"crashRecovery": "Crash Recovery Recording",
+		"crashRecoveryDescription": "Record in segments so you can recover if the app crashes or power is lost. May use slightly more storage during recording.",
+		"maxFramerate": "Max Capture Framerate",
+		"maxFramerateDescription": "Maximum framerate for screen capture. Higher values may cause instability on some systems.",
+		"highFramerateWarning": "Higher framerates may cause dropped frames or increased CPU usage on some systems.",
+		"search": {
+			"displays": "Search displays",
+			"windows": "Search windows",
+			"recordings": "Search recordings",
+			"screenshots": "Search screenshots",
+			"noDisplays": "No matching displays found",
+			"noWindows": "No matching windows found",
+			"noRecordings": "No matching recordings found",
+			"noScreenshots": "No matching screenshots found",
+			"errorLoadingDisplays": "Failed to load displays. Try clicking the Displays button.",
+			"errorLoadingWindows": "Failed to load windows. Try clicking the Windows button."
+		},
+		"modeSelect": {
+			"title": "Select Recording Mode",
+			"subtitle": "Choose how you want to capture your screen",
+			"instant": {
+				"title": "Instant",
+				"description": "Share instantly via link. Recording is uploaded as you record, ready to share the moment you finish."
+			},
+			"studio": {
+				"title": "Studio",
+				"description": "Record locally at the highest quality for post-production editing. Perfect for creating polished content with effects and transitions."
+			},
+			"screenshot": {
+				"title": "Screenshot",
+				"description": "Capture and annotate screenshots instantly. Perfect for quick captures, bug reports, and visual communication."
+			}
+		},
+		"defaultName": "Cap Recording",
+		"captureArea": {
+			"title": "Capture Area",
+			"close": "Close",
+			"reset": "Reset",
+			"fill": "Fill",
+			"aspectRatio": "Aspect Ratio",
+			"confirm": "Confirm",
+			"selectionHint": "Drag to select recording area"
+		},
+		"camera": {
+			"loading": "Loading camera...",
+			"disconnected": "Camera disconnected"
+		},
+		"systemAudio": {
+			"record": "Record system audio",
+			"noAudio": "No system audio",
+			"notSupported": "System audio recording requires macOS 13.0 or later"
+		},
+		"back": "Back"
+	},
+	"recordingsPage": {
+		"title": "Recordings",
+		"description": "Manage your recordings. View, edit, share, or delete them here.",
+		"notFound": "No recordings found",
+		"noCategoryRecordings": "No {{category}} recordings found",
+		"tabs": {
+			"all": "All",
+			"instant": "Instant",
+			"studio": "Studio"
+		},
+		"status": {
+			"inProgress": "Recording in progress",
+			"failed": "Recording failed",
+			"uploadFailed": "Upload failed",
+			"loadFailed": "Failed to load recording",
+			"renderingVideo": "Rendering video",
+			"renderingImage": "Rendering image",
+			"copyingToClipboard": "Copying to clipboard",
+			"copiedToClipboard": "Copied to clipboard",
+			"choosingLocation": "Preparing",
+			"creatingLink": "Creating link",
+			"linkCopied": "Link copied",
+			"savingVideo": "Saving video",
+			"savedVideo": "Video saved",
+			"savingImage": "Saving image",
+			"savedImage": "Image saved"
+		},
+		"actions": {
+			"openLink": "Open Link",
+			"edit": "Edit",
+			"view": "View",
+			"reupload": "Reupload",
+			"retryUpload": "Retry Upload",
+			"openBundle": "Open in Folder",
+			"delete": "Delete",
+			"copyToClipboard": "Copy to Clipboard",
+			"copyingToClipboard": "Copying...",
+			"saveAs": "Save As...",
+			"export": "Export",
+			"close": "Close",
+			"copyLink": "Copy Link",
+			"createLink": "Create Link"
+		},
+		"confirm": {
+			"corruptedTitle": "Recording May Be Corrupted",
+			"corruptedMessage": "This recording may be corrupted or some segments are missing. Still try to open it?",
+			"deleteMessage": "Are you sure you want to permanently delete this recording? This cannot be undone."
+		}
+	},
+	"screenshot": {
+		"copied": "Screenshot copied to clipboard",
+		"messages": {
+			"saveSuccess": "Screenshot saved!",
+			"copySuccess": "Screenshot copied to clipboard!",
+			"saveFailed": "Failed to save screenshot",
+			"copyFailed": "Failed to copy screenshot",
+			"exportFailed": "Export failed",
+			"loadFailed": "Failed to load screenshot"
+		},
+		"editor": {
+			"loadingPreview": "Loading preview..."
+		}
+	},
+	"modes": {
+		"screen": "Screen",
+		"window": "Window",
+		"camera": "Camera",
+		"audio": "Audio",
+		"screenshot": "Screenshot",
+		"recording": "Recording"
+	},
+	"settings": {
+		"general": "General Settings",
+		"theme": "Theme",
+		"language": "Language",
+		"appearance": "Appearance",
+		"behavior": "Behavior",
+		"audio": "Audio",
+		"camera": "Camera",
+		"hotkeys": "Hotkeys",
+		"shortcuts": "Shortcuts",
+		"advanced": "Advanced",
+		"reset": "Reset to Defaults",
+		"recordings": "Recordings",
+		"screenshots": "Screenshots",
+		"integrations": "Integrations",
+		"license": "License",
+		"experimental": "Experimental",
+		"feedback": "Feedback",
+		"changelog": "Changelog"
+	},
+	"settingsPage": {
+		"capPro": "Cap Pro",
+		"autoOpenShareableLinks": "Auto-open shareable links",
+		"autoOpenShareableLinksDescription": "Should Cap automatically open instant recordings in the browser",
+		"app": "App",
+		"alwaysShowDockIcon": "Always show dock icon",
+		"alwaysShowDockIconDescription": "Show Cap in the dock even when there are no closable windows.",
+		"enableSystemNotifications": "Enable system notifications",
+		"enableSystemNotificationsDescription": "Show system notifications for things like clipboard copies, file saves, etc. You may need to manually allow Cap access in system notification settings.",
+		"defaultProjectName": "Default project name",
+		"defaultProjectNameDescription": "Choose the template to use as the default project and file name.",
+		"howToCustomize": "How to customize?",
+		"customizePlaceholders": "Use placeholders in the template and they will be auto-filled.",
+		"recordingMode": "Recording Mode",
+		"excludedWindows": "Excluded Windows",
+		"excludedWindowsDescription": "List of windows excluded from recordings and screenshots.",
+		"excludedWindowsDescriptionWindows": "List of windows Cap should hide during recording.",
+		"addWindow": "Add Window",
+		"resetToDefaults": "Reset to defaults",
+		"noExclusions": "No exclusions",
+		"selfHost": "Self-host",
+		"capServerUrl": "Cap Server URL",
+		"capServerUrlDescription": "Only change this if you are self-hosting a Cap Web instance.",
+		"confirmServerChange": "Are you sure you want to change the server URL to '{{origin}}'? You will need to sign in again.",
+		"target": "Target",
+		"dateAndTime": "Date and Time",
+		"customFormats": "Custom Formats",
+		"windowsExclusionNote": "Note: Due to technical limitations, on Windows only Cap-related windows can be excluded."
+	},
+	"hotkeysPage": {
+		"title": "Hotkeys",
+		"description": "Configure system global shortcuts to control Cap.",
+		"setHotkeys": "Set hotkeys...",
+		"none": "None"
+	},
+	"actions": {
+		"startStudioRecording": "Start studio recording",
+		"startInstantRecording": "Start instant recording",
+		"restartRecording": "Restart recording",
+		"stopRecording": "Stop recording",
+		"togglePauseRecording": "Toggle pause recording",
+		"cycleRecordingMode": "Cycle recording mode",
+		"openRecordingPicker": "Open recording picker",
+		"openRecordingPickerDisplay": "Select display to record",
+		"openRecordingPickerWindow": "Select window to record",
+		"openRecordingPickerArea": "Record area",
+		"chooseDisplay": "Choose Display",
+		"chooseWindow": "Choose Window",
+		"signingIn": "Signing in...",
+		"cancelSignIn": "Cancel sign in"
+	},
+	"screenshotsPage": {
+		"title": "Screenshots",
+		"description": "Manage your screenshots and take actions.",
+		"notFound": "No screenshots found",
+		"tabs": {
+			"all": "All"
+		},
+		"actions": {
+			"openFolder": "Open Folder",
+			"openInEditor": "Open in Editor",
+			"copyImage": "Copy Image",
+			"delete": "Delete"
+		},
+		"confirm": {
+			"deleteMessage": "Are you sure you want to delete this screenshot?"
+		}
+	},
+	"licensePage": {
+		"proTitle": "Cap Pro License",
+		"proDescriptionPrefix": "Your account has been upgraded to ",
+		"proDescriptionSuffix": " and includes a commercial license.",
+		"commercialTitle": "Commercial License",
+		"licenseKey": "License Key",
+		"expires": "Expires",
+		"deactivate": "Deactivate License",
+		"haveKey": "Already have a license key?",
+		"keyPlaceholder": "License key",
+		"activate": "Activate License",
+		"activating": "Activating...",
+		"forCommercialUse": "For commercial use",
+		"billedAnnually": "Billed annually",
+		"oneTimePayment": "One-time payment",
+		"switchTo": "Switch to {{type}}: {{price}}",
+		"yearly": "Yearly",
+		"lifetime": "Lifetime",
+		"purchase": "Purchase License",
+		"loading": "Loading...",
+		"features": {
+			"commercialUse": "Commercial use of Cap recorder + editor",
+			"communitySupport": "Community support",
+			"localFeatures": "Local-only features",
+			"perpetualOption": "Perpetual license option"
+		}
+	},
+	"experimentalPage": {
+		"title": "Experimental Features",
+		"description": "These features are still in development and may not work as expected.",
+		"recordingFeatures": "Recording Features",
+		"features": {
+			"customCursor": {
+				"label": "Custom cursor capture in Studio mode",
+				"description": "Studio mode recording will capture cursor state separately for customisation in the editor (size, smoothing). Currently experimental as cursor events may not be captured accurately."
+			},
+			"nativeCamera": {
+				"label": "Native camera preview",
+				"description": "Use native GPU surface instead of rendering camera preview in webview. This is not available on some Windows systems, so results may vary."
+			},
+			"autoZoom": {
+				"label": "Auto-zoom on click",
+				"description": "Automatically generate zoom segments around mouse clicks during studio mode recording. This helps highlight important interactions in your recordings."
+			}
+		}
+	},
+	"feedbackPage": {
+		"title": "Feedback",
+		"description": "Have feedback? We'd love to hear from you."
+	},
+	"integrationsPage": {
+		"title": "Integrations",
+		"description": "Configure integrations to extend Cap's functionality and connect third-party services.",
+		"apps": {
+			"s3Config": {
+				"name": "S3 Config",
+				"description": "Connect your own S3 bucket for full control over data storage. All new share link uploads will automatically go to your configured S3 bucket, ensuring you maintain full ownership and control of your content. Ideal for organizations that need data sovereignty and custom storage strategies."
+			}
+		},
+		"buttons": {
+			"upgradeToPro": "Upgrade to Pro",
+			"configure": "Configure"
+		}
+	},
+	"s3ConfigPage": {
+		"error": {
+			"fetch": "Failed to fetch S3 config",
+			"save": "Failed to save S3 config",
+			"delete": "Failed to delete S3 config",
+			"test": "S3 connection test failed. Check your configuration and network connection.",
+			"timeout": "Connection test timed out after 5 seconds. Check your endpoint URL and network connection."
+		},
+		"success": {
+			"save": "S3 config saved successfully",
+			"delete": "S3 config deleted successfully",
+			"test": "S3 config test successful! Connection is working."
+		},
+		"guideTextPre": "Setting up and connecting a bucket to Cap takes less than 10 minutes. Check out the ",
+		"guideLink": "storage setup guide",
+		"guideTextPost": " to get started.",
+		"storageProvider": "Storage Provider",
+		"labels": {
+			"accessKeyId": "Access Key ID",
+			"secretAccessKey": "Secret Access Key",
+			"endpoint": "Endpoint",
+			"bucketName": "Bucket Name",
+			"region": "Region"
+		},
+		"providers": {
+			"aws": "AWS S3",
+			"cloudflare": "Cloudflare R2",
+			"supabase": "Supabase",
+			"minio": "MinIO",
+			"other": "Other S3-compatible"
+		},
+		"buttons": {
+			"remove": "Remove Config",
+			"removing": "Removing...",
+			"test": "Test Connection",
+			"testing": "Testing...",
+			"save": "Save",
+			"saving": "Saving..."
+		}
+	},
+	"recordingsOverlay": {
+		"action": {
+			"renderingVideo": "Rendering video",
+			"copyingToClipboard": "Copying to clipboard",
+			"copiedToClipboard": "Copied to clipboard",
+			"preparing": "Preparing",
+			"renderingImage": "Rendering image",
+			"savingVideo": "Saving video",
+			"savedVideo": "Video saved",
+			"savingImage": "Saving image",
+			"savedImage": "Image saved",
+			"choosingLocation": "Choosing {{type}} save location...",
+			"creatingLink": "Creating share link",
+			"linkCopied": "Share link copied"
+		},
+		"tooltips": {
+			"close": "Close",
+			"edit": "Edit",
+			"view": "View",
+			"copyToClipboard": "Copy to clipboard",
+			"copyingToClipboard": "Copying to clipboard",
+			"copyLink": "Copy share link",
+			"createLink": "Create share link"
+		},
+		"export": "Export"
+	},
+	"recordingOverlay": {
+		"issues": {
+			"micDisconnected": "Microphone disconnected. Reconnect to continue recording.",
+			"cameraDisconnected": "Camera disconnected. Reconnect to continue recording.",
+			"dismiss": "Dismiss recording issue"
+		},
+		"controls": {
+			"stop": "Stop recording",
+			"starting": "Starting",
+			"resume": "Resume recording",
+			"pause": "Pause recording",
+			"restart": "Restart recording",
+			"delete": "Delete recording",
+			"settings": "Recording settings"
+		},
+		"menu": {
+			"cameraPreview": "Show camera preview",
+			"mic": "Microphone",
+			"micLocked": "Microphone (locked for this recording)",
+			"noMic": "No microphone",
+			"systemAudio": {
+				"record": "Record system audio",
+				"noAudio": "No system audio",
+				"notSupported": "System audio recording requires macOS 13.0 or later"
+			},
+			"webcam": "Webcam",
+			"webcamLocked": "Webcam (locked for this recording)",
+			"noWebcam": "No webcam"
+		},
+		"confirm": {
+			"restartTitle": "Confirm Restart",
+			"restartMessage": "Are you sure you want to restart? The current recording will be discarded.",
+			"restartOk": "Restart",
+			"deleteTitle": "Confirm Delete",
+			"deleteMessage": "Are you sure you want to delete this recording?",
+			"deleteOk": "Delete",
+			"cancel": "Cancel"
+		},
+		"errors": {
+			"authRequiredTitle": "Authentication Required",
+			"authRequiredMessage": "You must be signed in to start an instant mode recording. Please sign in or switch to studio mode.",
+			"login": "Sign In",
+			"switchToStudio": "Switch to Studio",
+			"startErrorTitle": "Error starting recording",
+			"signInToShare": "You need to sign in to share recordings",
+			"upgradeRequired": "Sharing recordings longer than 5 minutes requires an upgrade"
+		}
+	},
+	"targetSelect": {
+		"monitor": "Display",
+		"adjustArea": "Adjust recording area",
+		"resetSelection": "Reset selection",
+		"minSize": "Minimum size is {{width}} x {{height}}",
+		"tooSmall": "{{width}} x {{height}} is too small",
+		"hint": "Click and drag to select area",
+		"modes": {
+			"studio": "Studio Mode",
+			"instant": "Instant Mode",
+			"screenshot": "Screenshot Mode"
+		},
+		"countdown": {
+			"title": "Recording Countdown",
+			"off": "Off",
+			"3s": "3s",
+			"5s": "5s",
+			"10s": "10s"
+		},
+		"actions": {
+			"signInToUse": "Sign in to use",
+			"takeScreenshot": "Take Screenshot",
+			"startRecording": "Start Recording",
+			"exportVideo": "Export Video",
+			"saveImage": "Save Image"
+		},
+		"whatIsMode": "What is {{mode}} mode?",
+		"freeWarning": "Instant mode recording is limited to 5 minutes. ",
+		"upgradeToPro": "Upgrade to Pro"
+	},
+	"behaviours": {
+		"close": "Close",
+		"minimise": "Minimise",
+		"openEditor": "Open Editor",
+		"showOverlay": "Show Overlay",
+		"doNothing": "Do nothing",
+		"reopenRecordingWindow": "Reopen recording window",
+		"cancel": "Cancel",
+		"done": "Done",
+		"delete": "Delete"
+	},
+	"time": {
+		"seconds": "seconds",
+		"threeSeconds": "3 seconds",
+		"fiveSeconds": "5 seconds",
+		"tenSeconds": "10 seconds"
+	},
+	"editor": {
+		"initializing": "Initializing editor...",
+		"timeline": {
+			"clip": {
+				"label": "Clip"
+			},
+			"zoom": {
+				"placeholder": "Click to add zoom",
+				"description": "(smooth zoom important areas)",
+				"label": "Zoom",
+				"generate": "Generate zoom from clicks"
+			},
+			"text": {
+				"placeholder": "Click to add text",
+				"description": "(set labels on video)",
+				"label": "Text",
+				"defaultContent": "Label"
+			},
+			"mask": {
+				"placeholder": "Click to add mask",
+				"description": "(blur or highlight sensitive info)",
+				"label": "Mask",
+				"sensitive": "Sensitive",
+				"highlight": "Highlight"
+			},
+			"scene": {
+				"placeholder": "Click to add scene",
+				"description": "(make camera fullscreen or hide)",
+				"label": "Scene",
+				"cameraOnly": "Camera only",
+				"hideCamera": "Hide camera",
+				"default": "Default"
+			},
+			"addTrack": "Add track"
+		},
+		"sidebar": {
+			"background": "Background",
+			"camera": "Camera",
+			"audio": "Audio",
+			"cursor": "Cursor",
+			"captions": "Captions",
+			"audioControls": "Audio Controls",
+			"muteAudio": "Mute Audio",
+			"micStereoMode": "Mic Stereo Mode",
+			"micVolume": "Mic Volume",
+			"systemAudioVolume": "System Audio Volume",
+			"muted": "Muted",
+			"cursorType": "Cursor Type",
+			"cursorSize": "Cursor Size",
+			"hideWhenIdle": "Hide when idle",
+			"inactivityDelay": "Inactivity Delay",
+			"movementStyle": "Movement Style",
+			"smoothMovement": "Smooth Movement",
+			"tension": "Tension",
+			"friction": "Friction",
+			"mass": "Mass",
+			"highQualitySvg": "High Quality SVG Cursor",
+			"backgroundBlur": "Background Blur",
+			"padding": "Padding",
+			"roundedCorners": "Rounded Corners",
+			"cornerStyle": "Corner Style",
+			"motionBlur": "Motion Blur",
+			"border": "Border",
+			"borderWidth": "Border Width",
+			"borderColor": "Border Color",
+			"borderOpacity": "Border Opacity",
+			"shadow": "Shadow",
+			"shadowAdvanced": "Advanced Shadow Settings",
+			"shadowSize": "Shadow Size",
+			"shadowOpacity": "Shadow Opacity",
+			"shadowBlur": "Shadow Blur",
+			"mirrorCamera": "Mirror Camera",
+			"hideCamera": "Hide Camera",
+			"cameraShape": "Camera Shape",
+			"cameraSize": "Camera Size",
+			"zoomCameraSize": "Zoom Size",
+			"position": "Position",
+			"speed": "Speed",
+			"speedNote": "Changing speed will mute this segment.",
+			"segmentSettings": "Segment Settings",
+			"segmentSettingsNote": "These settings only apply to the selected segment",
+			"clipSettings": "Clip Settings",
+			"clipSettingsNote": "These settings apply to all segments of the current clip",
+			"systemAudioOffset": "System Audio Offset",
+			"micOffset": "Mic Offset",
+			"cameraOffset": "Camera Offset",
+			"textSegment": "Text {{index}}",
+			"maskSegment": "Mask {{index}}",
+			"zoomSegment": "Zoom {{index}}",
+			"textSegmentsSelected": "{{count}} text segments selected",
+			"maskSegmentsSelected": "{{count}} mask segments selected",
+			"zoomSegmentsSelected": "{{count}} zoom segments selected",
+			"enabled": "Enabled",
+			"italic": "Italic",
+			"color": "Color",
+			"fadeDuration": "Fade Duration",
+			"pixelation": "Pixelation",
+			"intensity": "Intensity",
+			"outsideDarkness": "Outside Darkness",
+			"loading": "Loading...",
+			"clickToSelectImage": "Click to select or drag and drop an image",
+			"cameraLayout": "Camera Layout",
+			"cameraLayouts": {
+				"default": "Default",
+				"auto": "Auto",
+				"manual": "Manual",
+				"cameraOnly": "Camera Only",
+				"hideCamera": "Hide Camera",
+				"defaultDescription": "Show both screen and camera",
+				"cameraOnlyDescription": "Show only camera",
+				"hideCameraDescription": "Show only screen recording"
+			},
+			"backgroundSources": {
+				"wallpaper": "Wallpaper",
+				"image": "Image",
+				"color": "Color",
+				"gradient": "Gradient"
+			},
+			"backgroundThemes": {
+				"macOS": "macOS",
+				"dark": "Dark",
+				"blue": "Blue",
+				"purple": "Purple",
+				"orange": "Orange"
+			},
+			"messages": {
+				"wallpaperFailed": "Failed to set wallpaper",
+				"invalidImage": "Invalid image file type",
+				"imageSaveFailed": "Failed to save image"
+			},
+			"stereoModes": {
+				"stereo": "Stereo",
+				"monoL": "Mono (Left)",
+				"monoR": "Mono (Right)"
+			},
+			"cameraShapes": {
+				"square": "Square",
+				"source": "Source"
+			},
+			"cornerStyles": {
+				"squircle": "Squircle",
+				"rounded": "Rounded"
+			},
+			"cursorTypes": {
+				"auto": "Auto",
+				"autoDescription": "Use the real cursor from the recording.",
+				"circle": "Circle",
+				"circleDescription": "Touch-style circle cursor similar to mobile emulators."
+			},
+			"animationStyles": {
+				"slow": "Slow",
+				"slowDescription": "Easy smooth effect with some inertia.",
+				"mellow": "Mellow",
+				"mellowDescription": "Balanced smooth effect for everyday tutorials and demos.",
+				"custom": "Custom",
+				"customDescription": "Manually adjust tension, friction, and mass for full control."
+			}
+		},
+		"captions": {
+			"title": "Captions",
+			"model": "Speech-to-text Model",
+			"language": "Language",
+			"selectLanguage": "Select Language",
+			"downloadModel": "Download Model",
+			"downloading": "Downloading...",
+			"generate": "Generate Captions",
+			"regenerate": "Regenerate Captions",
+			"generating": "Generating...",
+			"fontSettings": "Font Settings",
+			"fontFamily": "Font Family",
+			"fontSize": "Font Size",
+			"highlight": "Current Word Highlight",
+			"highlightNote": "This is the first version of Cap captions. Current word highlighting may not be accurate in all cases. We are working on fixing this and will release it in a future update.",
+			"fontColor": "Font Color",
+			"backgroundSettings": "Background Settings",
+			"backgroundColor": "Background Color",
+			"backgroundOpacity": "Background Opacity",
+			"position": "Position",
+			"animation": "Animation",
+			"highlightColor": "Highlight Color",
+			"fadeDuration": "Fade Duration",
+			"downloadSuccess": "Caption model downloaded successfully!",
+			"downloadFailed": "Failed to download caption model",
+			"generateSuccess": "Captions generated successfully!",
+			"generateFailed": "Failed to generate captions: {{error}}",
+			"noAudio": "No audio found in video file",
+			"modelNotFound": "Caption model not found. Please download it first",
+			"loadModelFailed": "Failed to load caption model. Try re-downloading",
+			"noCaptionsGenerated": "No captions were generated. Audio may be too quiet or unclear.",
+			"newCaption": "New Caption",
+			"transcriptionModel": "Transcription Model",
+			"autoDetect": "Auto Detect",
+			"downloaded": "Downloaded",
+			"fontWeight": "Font Weight",
+			"normal": "Normal",
+			"medium": "Medium",
+			"bold": "Bold",
+			"exportOptions": "Export Options",
+			"exportWithSubtitles": "Include subtitles when exporting",
+			"segments": "Caption Segments",
+			"addAtCurrentTime": "Add at current time",
+			"startTime": "Start Time",
+			"endTime": "End Time",
+			"text": "Caption Text"
+		},
+		"export": {
+			"title": "Export",
+			"backToEditor": "Back to Editor",
+			"preview": "Preview",
+			"previewNote": "This is a rendered frame from the video. Adjust the settings below to see the quality of the final exported video.",
+			"generatingPreview": "Generating preview...",
+			"destination": "Destination",
+			"organization": "Organization",
+			"file": "File",
+			"fileDescription": "Save to your computer",
+			"clipboard": "Clipboard",
+			"clipboardDescription": "Copy to paste anywhere",
+			"shareableLink": "Shareable Link",
+			"shareableLinkDescription": "Share via Cap Cloud",
+			"format": "Format",
+			"noMp4Transparency": "MP4 does not support transparent backgrounds",
+			"linksRequireMp4": "Link sharing only supports MP4 format",
+			"resolution": "Resolution",
+			"frameRate": "Frame Rate",
+			"qualityLabel": "Quality",
+			"smallerFile": "Smaller file",
+			"largerFile": "Higher quality",
+			"qualityPreview": "Quality Preview",
+			"estimatedSize": "Estimated size:",
+			"compression": {
+				"title": "Compression",
+				"minimal": "Minimal",
+				"social": "Social Media",
+				"socialShort": "Social",
+				"web": "Web",
+				"potato": "Potato"
+			},
+			"actions": {
+				"signInToShare": "Sign in to share",
+				"exportToFile": "Export to File",
+				"exportToClipboard": "Export to Clipboard",
+				"exportToLink": "Export as Link",
+				"copyLink": "Copy Link",
+				"openLink": "Open Link",
+				"openFile": "Open File",
+				"copyToClipboard": "Copy to Clipboard"
+			},
+			"status": {
+				"preparing": "Preparing...",
+				"renderingGif": "Rendering GIF...",
+				"renderingVideo": "Rendering video...",
+				"copying": "Copying to clipboard...",
+				"copied": "Copied to clipboard",
+				"exportingToFile": "Exporting to file...",
+				"exportCompleted": "Export completed",
+				"exportComplete": "Export successful",
+				"ready": "Your {{type}} is ready",
+				"uploading": "Uploading...",
+				"uploadingProgress": "Uploading - {{progress}}%",
+				"uploadComplete": "Upload complete",
+				"uploadSuccess": "Your recording has been uploaded successfully",
+				"renderingFrames": "Rendering {{type}} ({{current}}/{{total}} frames)",
+				"preparingRender": "Preparing render..."
+			},
+			"messages": {
+				"authRequired": "You need to sign in to share recordings",
+				"planCheckFailed": "Failed to verify your subscription status",
+				"upgradeRequired": "This feature requires an upgraded plan",
+				"uploadFailed": "Failed to upload recording",
+				"exportedToClipboard": "{{type}} exported to clipboard",
+				"exportedToFile": "{{type}} exported to file",
+				"errorCopying": "Failed to copy recording",
+				"errorExporting": "Failed to export recording: {{error}}",
+				"cancelConfirm": "Are you sure you want to cancel the export?",
+				"cancelTitle": "Cancel Export"
+			},
+			"recording": "Recording",
+			"gif": "GIF",
+			"quality": {
+				"minimal": "Minimal compression",
+				"maximum": "Maximum quality",
+				"social": "Social Media",
+				"web": "Web",
+				"potato": "Potato"
+			},
+			"exportTo": {
+				"file": {
+					"label": "File",
+					"description": "Save to your computer"
+				},
+				"clipboard": {
+					"label": "Clipboard",
+					"description": "Copy to paste"
+				},
+				"link": {
+					"label": "Link",
+					"description": "Share via Cap Cloud"
+				}
+			}
+		},
+		"header": {
+			"deleteTooltip": "Delete recording",
+			"openBundleTooltip": "Open recording bundle",
+			"captionsTooltip": "Captions",
+			"performanceTooltip": "Performance",
+			"undoTooltip": "Undo",
+			"redoTooltip": "Redo",
+			"export": "Export",
+			"confirmDelete": "Are you sure you want to delete this recording?"
+		},
+		"presets": {
+			"title": "Presets",
+			"none": "No presets",
+			"default": "Default",
+			"apply": "Apply",
+			"setDefault": "Set as Default",
+			"rename": "Rename",
+			"delete": "Delete",
+			"create": "Create New Preset",
+			"createTitle": "Create Preset",
+			"renameTitle": "Rename Preset",
+			"deleteTitle": "Delete Preset",
+			"deleteConfirm": "Are you sure you want to delete this preset?",
+			"placeholder": "Enter preset name...",
+			"setDefaultAction": "Set as default"
+		},
+		"player": {
+			"quality": "Preview Quality",
+			"selectQuality": "Select preview quality",
+			"crop": "Crop",
+			"cropTooltip": "Crop video",
+			"playPauseTooltip": "Play / Pause video",
+			"splitTooltip": "Toggle split",
+			"zoomOutTooltip": "Zoom out",
+			"zoomInTooltip": "Zoom in",
+			"secondsVisible": "{{seconds}}s visible",
+			"qualities": {
+				"full": "Full",
+				"half": "Half",
+				"quarter": "Quarter"
+			}
+		},
+		"share": {
+			"signInRequired": "You need to sign in to share recordings",
+			"upgradeRequired": "Sharing recordings longer than 5 minutes requires an upgraded plan",
+			"failedToVerify": "Failed to verify your subscription status",
+			"upgradeRequiredFeature": "This feature requires an upgraded plan",
+			"failedToUpload": "Failed to upload recording",
+			"reuploading": "Re-uploading video",
+			"reupload": "Re-upload video",
+			"openLink": "Open link",
+			"selectLink": "Select link",
+			"copyLink": "Copy link",
+			"reuploadTitle": "Re-upload Recording",
+			"preparing": "Preparing render...",
+			"rendering": "Rendering video ({{current}}/{{total}} frames)",
+			"uploading": "Uploading - {{progress}}%",
+			"copied": "Link copied to clipboard!"
+		},
+		"crop": {
+			"size": "Size",
+			"position": "Position",
+			"full": "Full",
+			"reset": "Reset",
+			"save": "Save"
+		}
+	},
+	"screenshotEditor": {
+		"header": {
+			"crop": "Crop image",
+			"copy": "Copy to clipboard",
+			"save": "Save",
+			"moreActions": "More actions",
+			"openFolder": "Open Folder",
+			"delete": "Delete",
+			"confirmDelete": "Are you sure you want to delete this screenshot?"
+		},
+		"tools": {
+			"layers": "Layers",
+			"select": "Select",
+			"arrow": "Arrow",
+			"rectangle": "Rectangle",
+			"mask": "Mask",
+			"circle": "Circle",
+			"text": "Text"
+		},
+		"layers": {
+			"title": "Layers",
+			"empty": "No layers",
+			"instruction": "Use tools above to add annotations",
+			"reorder": "Drag to reorder - top represents front layer"
+		},
+		"config": {
+			"color": "Color",
+			"stroke": "Stroke",
+			"width": "Width",
+			"fill": "Fill",
+			"opacity": "Opacity",
+			"style": "Style",
+			"intensity": "Intensity",
+			"size": "Size",
+			"done": "Done",
+			"transparent": "Transparent",
+			"blur": "Blur",
+			"pixelate": "Pixelate"
+		},
+		"background": {
+			"title": "Background",
+			"image": "Background Image",
+			"blur": "Background Blur",
+			"selectImage": "Click to select or drag and drop an image",
+			"sources": {
+				"wallpaper": "Wallpaper",
+				"image": "Image",
+				"color": "Color",
+				"gradient": "Gradient"
+			},
+			"themes": {
+				"macOS": "macOS",
+				"dark": "Dark",
+				"blue": "Blue",
+				"purple": "Purple",
+				"orange": "Orange"
+			}
+		},
+		"appearance": {
+			"shadow": {
+				"title": "Shadow",
+				"advanced": "Advanced Shadow Settings"
+			},
+			"padding": {
+				"title": "Padding"
+			},
+			"rounding": {
+				"title": "Rounding",
+				"label": "Rounding",
+				"cornerStyle": {
+					"label": "Corner Style",
+					"squircle": "Squircle",
+					"rounded": "Rounded"
+				}
+			},
+			"border": {
+				"title": "Border"
+			},
+			"annotation": {
+				"settings": "Annotation Settings",
+				"placeholder": "Select an annotation to edit.",
+				"strokeColor": "Stroke Color",
+				"fillColor": "Fill Color",
+				"strokeWidth": "Stroke Width",
+				"delete": "Delete Annotation"
+			}
+		}
+	},
+	"fps": {
+		"30": "30 FPS",
+		"60": "60 FPS (Recommended)",
+		"120": "120 FPS"
+	},
+	"notifications": {
+		"micDisconnected": {
+			"title": "Microphone Disconnected",
+			"body": "Recording paused. Reconnect your microphone and resume or stop recording."
+		},
+		"cameraDisconnected": {
+			"title": "Camera Disconnected",
+			"body": "Recording paused. Reconnect your camera and resume or stop recording."
+		},
+		"videoSaved": {
+			"title": "Video Saved",
+			"body": "Video saved successfully"
+		},
+		"videoCopied": {
+			"title": "Video Copied",
+			"body": "Video copied to clipboard"
+		},
+		"linkCopied": {
+			"title": "Link Copied",
+			"body": "Link copied to clipboard"
+		},
+		"uploadFailed": {
+			"title": "Upload Failed",
+			"body": "Failed to upload media. Please try again"
+		},
+		"videoSaveFailed": {
+			"title": "Save Failed",
+			"body": "Failed to save video. Please try again"
+		},
+		"videoCopyFailed": {
+			"title": "Copy Failed",
+			"body": "Failed to copy video to clipboard. Please try again"
+		},
+		"shareFailed": {
+			"title": "Share Failed",
+			"body": "Failed to create share link. Please try again"
+		},
+		"screenshotSaved": {
+			"title": "Screenshot Saved",
+			"body": "Screenshot saved successfully"
+		},
+		"screenshotCopied": {
+			"title": "Screenshot Copied",
+			"body": "Screenshot copied to clipboard"
+		},
+		"screenshotSaveFailed": {
+			"title": "Save Failed",
+			"body": "Failed to save screenshot. Please try again"
+		},
+		"screenshotCopyFailed": {
+			"title": "Copy Failed",
+			"body": "Failed to copy screenshot to clipboard. Please try again"
+		}
+	},
+	"setup": {
+		"permissionsRequired": "Permissions Required",
+		"description": "Cap needs permissions to function properly.",
+		"granted": "Granted",
+		"openSettings": "Open Settings",
+		"grantPermission": "Grant Permission",
+		"continue": "Continue",
+		"continueToCap": "Continue to Cap",
+		"restartRequired": "Restart Required",
+		"restartMessage": "After adding Cap in System Settings, you need to restart the app for the permissions to take effect.",
+		"restartOk": "Granted, Restart Now",
+		"restartCancel": "Later, I still need to set up",
+		"welcome": "Welcome to Cap",
+		"tagline": "Beautiful screen recordings, owned by you.",
+		"getStarted": "Get Started",
+		"selectMode": "Select Recording Mode",
+		"modeDescription": "Choose how you'd like to record. You can always change this later.",
+		"permissions": {
+			"screenRecording": {
+				"name": "Screen Recording",
+				"description": "Add Cap in System Settings, then restart the app for changes to take effect."
+			},
+			"accessibility": {
+				"name": "Accessibility",
+				"description": "Cap collects mouse activity locally during recording to generate auto-zoom segments."
+			},
+			"microphone": {
+				"name": "Microphone",
+				"description": "This permission is needed to record audio in Caps."
+			},
+			"camera": {
+				"name": "Camera",
+				"description": "This permission is needed to record camera in Caps."
+			}
+		}
+	},
+	"upgrade": {
+		"title": "Early Adopter Pricing",
+		"completeTitle": "Upgrade Complete",
+		"completeMessage": "You can close this window now - thank you for upgrading!",
+		"closeWindow": "Close Window",
+		"commercialLicense": "Commercial License",
+		"commercialDescription": "Your Cap commercial use license details",
+		"licenseKey": "License Key",
+		"expires": "Valid until",
+		"deactivating": "Deactivating...",
+		"deactivateLicense": "Deactivate License",
+		"forCommercialUse": "For Commercial Use",
+		"billedAnnually": "Billed Annually",
+		"oneTimePayment": "One-time Payment",
+		"switchTo": "Switch to {{mode}}: {{price}}",
+		"lifetime": "Lifetime",
+		"yearly": "Yearly",
+		"monthly": "Monthly",
+		"purchaseLicense": "Purchase License",
+		"alreadyHaveLicense": "Already have a license key?",
+		"capPro": "Cap Pro",
+		"proDescription": "For professionals and teams.",
+		"perUserBilledAnnually": "Per user, billed annually",
+		"perUserBilledMonthly": "Per user, billed monthly",
+		"upgradeToPro": "Upgrade to Cap Pro",
+		"proFeatures": {
+			"commercial": "Includes commercial license",
+			"storage": "Unlimited cloud storage and share links",
+			"s3": "Connect custom S3 bucket",
+			"teams": "Advanced team features",
+			"views": "Unlimited views",
+			"password": "Password-protect videos",
+			"analytics": "Advanced analytics",
+			"support": "Priority support"
+		},
+		"pricing": {
+			"commercial": "Commercial use of Cap recorder + editor",
+			"support": "Community support",
+			"localOnly": "Local-only features",
+			"perpetual": "Perpetual license option"
+		},
+		"activateLicense": {
+			"title": "Activate License",
+			"placeholder": "Enter license key...",
+			"button": "Activate"
+		}
+	},
+	"update": {
+		"noUpdate": "You're already on the latest version",
+		"installing": "Installing update",
+		"done": "Update installed. Restart Cap to complete the update.",
+		"restartNow": "Restart Now"
+	},
+	"errorPage": {
+		"title": "An Error Occurred",
+		"description": "Sorry, something went wrong.",
+		"copyError": "Copy Error",
+		"reload": "Reload",
+		"close": "Close"
+	},
+	"changelogPage": {
+		"title": "Changelog",
+		"description": "See what's new in Cap",
+		"thanks": "Thanks for your support!"
+	}
+}
