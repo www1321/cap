@@ -1,0 +1,410 @@
+# Cap 中文版 - 自动同步原版并构建汉化版
+# 工作流程：
+# 1. 从原版 CapSoftware/Cap 拉取最新代码
+# 2. 自动应用汉化补丁（i18n 系统、中文翻译、配置修改、去登录限制）
+# 3. 构建 Windows 汉化版安装包
+# 4. 上传构建产物到 Release
+
+name: Sync Upstream & Build CN
+
+on:
+  # 仅手动触发（取消定时自动同步）
+  workflow_dispatch:
+    inputs:
+      build_windows:
+        description: '构建 Windows 版本'
+        required: false
+        default: true
+        type: boolean
+      build_macos:
+        description: '构建 macOS 版本'
+        required: false
+        default: false
+        type: boolean
+      create_release:
+        description: '创建 GitHub Release'
+        required: false
+        default: true
+        type: boolean
+      force_sync:
+        description: '强制同步（即使没有新提交）'
+        required: false
+        default: false
+        type: boolean
+
+env:
+  UPSTREAM_REPO: CapSoftware/Cap
+  UPSTREAM_BRANCH: main
+  PNPM_VERSION: 10.5.2
+
+jobs:
+  sync-upstream:
+    name: 同步原版最新代码
+    runs-on: ubuntu-latest
+    outputs:
+      has_changes: ${{ steps.check.outputs.has_changes }}
+      new_version: ${{ steps.check.outputs.new_version }}
+      upstream_sha: ${{ steps.sync.outputs.upstream_sha }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.PAT_TOKEN || github.token }}
+
+      - name: 配置 Git
+        run: |
+          git config user.name "CN Build Bot"
+          git config user.email "cn-build-bot@users.noreply.github.com"
+
+      - name: 拉取原版最新代码
+        id: sync
+        run: |
+          git remote add upstream https://github.com/${UPSTREAM_REPO}.git
+          git fetch upstream ${UPSTREAM_BRANCH}
+          UPSTREAM_SHA=$(git rev-parse upstream/${UPSTREAM_BRANCH})
+          echo "upstream_sha=${UPSTREAM_SHA}" >> $GITHUB_OUTPUT
+
+          # 获取上次同步的 upstream SHA
+          LAST_SYNC=$(git config --get cn-build.last-upstream-sha || echo "")
+          echo "上次同步 SHA: ${LAST_SYNC}"
+          echo "原版最新 SHA: ${UPSTREAM_SHA}"
+
+          if [ "${LAST_SYNC}" = "${UPSTREAM_SHA}" ] && [ "${{ github.event.inputs.force_sync }}" != "true" ]; then
+            echo "没有新的上游提交"
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # 合并上游更改
+          echo "正在合并上游更改..."
+          git merge upstream/${UPSTREAM_BRANCH} --no-edit || {
+            echo "合并冲突，尝试自动解决..."
+            # 对于 CN 定制文件，优先保留我们的版本
+            git checkout --ours apps/desktop/src/locales/ apps/desktop/src/utils/i18n.ts apps/desktop/src/components/I18nProvider.tsx 2>/dev/null || true
+            git add -A
+            git commit -m "merge: 合并原版最新代码（自动解决冲突）" --no-edit
+          }
+
+          echo "has_changes=true" >> $GITHUB_OUTPUT
+          git config cn-build.last-upstream-sha "${UPSTREAM_SHA}"
+
+          # 提取版本号
+          VERSION=$(grep -oP '"version"\s*:\s*"\K[^"]+' apps/desktop/src-tauri/Cargo.toml 2>/dev/null | head -1 || echo "unknown")
+          echo "new_version=${VERSION}" >> $GITHUB_OUTPUT
+          echo "检测到版本: ${VERSION}"
+
+      - name: 推送同步结果
+        if: steps.sync.outputs.has_changes == 'true'
+        run: |
+          git push origin main
+
+  apply-patches:
+    name: 应用汉化补丁
+    needs: sync-upstream
+    if: needs.sync-upstream.outputs.has_changes == 'true' || github.event.inputs.force_sync == 'true'
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PAT_TOKEN || github.token }}
+
+      - name: 配置 Git
+        run: |
+          git config user.name "CN Build Bot"
+          git config user.email "cn-build-bot@users.noreply.github.com"
+
+      - name: 获取版本号
+        id: version
+        run: |
+          VERSION=$(grep -oP '"version"\s*:\s*"\K[^"]+' apps/desktop/src-tauri/Cargo.toml 2>/dev/null | head -1 || echo "0.0.0")
+          CN_VERSION="${VERSION}-cn"
+          echo "version=${CN_VERSION}" >> $GITHUB_OUTPUT
+          echo "版本号: ${CN_VERSION}"
+
+      - name: 安装补丁工具
+        run: |
+          sudo apt-get update
+                   sudo apt-get install -y jq
+
+      - name: 执行汉化补丁脚本
+        run: |
+          chmod +x scripts/apply-cn-patches.sh
+          bash scripts/apply-cn-patches.sh
+
+      - name: 修改 Tauri 开发配置
+        run: |
+          CONFIG="apps/desktop/src-tauri/tauri.conf.json"
+          
+          # 使用 jq 修改配置
+          jq '
+            .productName = "Cap 中文版" |
+            .identifier = "so.cap.desktop.cn" |
+            .mainBinaryName = "Cap-CN" |
+            .bundle.windows.nsis.languages = ["SimpChinese"] |
+            .bundle.windows.nsis.displayLanguageSelector = false |
+            .bundle.windows.wix.language = "zh-CN"
+          ' "$CONFIG" > tmp.json && mv tmp.json "$CONFIG"
+          echo "Tauri 开发配置已修改"
+
+      - name: 修改 Tauri 生产配置
+        run: |
+          PROD_CONFIG="apps/desktop/src-tauri/tauri.prod.conf.json"
+          
+          if [ -f "$PROD_CONFIG" ]; then
+            jq '
+              .productName = "Cap 中文版" |
+              .identifier = "so.cap.desktop.cn" |
+              .mainBinaryName = "Cap-CN" |
+              .plugins.updater.active = false |
+              .plugins.updater.pubkey = "" |
+              .plugins.updater.endpoints = [] |
+              .bundle.windows.nsis.languages = ["SimpChinese"] |
+              .bundle.windows.nsis.displayLanguageSelector = false |
+              .bundle.windows.wix.language = "zh-CN"
+            ' "$PROD_CONFIG" > tmp.json && mv tmp.json "$PROD_CONFIG"
+            echo "Tauri 生产配置已修改"
+          else
+            echo "生产配置文件不存在，跳过"
+          fi
+
+      - name: 添加 i18n 依赖到 package.json
+        run: |
+          PKG_JSON="apps/desktop/package.json"
+          
+          # 添加 i18next 依赖
+          jq '.dependencies += {
+            "i18next": "^25.7.3",
+            "react-i18next": "^16.5.1"
+          }' "$PKG_JSON" > tmp.json && mv tmp.json "$PKG_JSON"
+          echo "package.json 依赖已更新"
+
+      - name: 修改 Rust Cargo.toml 版本后缀
+        run: |
+          CARGO_TOML="apps/desktop/src-tauri/Cargo.toml"
+          
+          # 在版本号后添加 -cn 后缀
+          sed -i 's/^version = "\([0-9]\+\.[0-9]\+\.[0-9]\+)"$/version = "\1-cn"/' "$CARGO_TOML" 2>/dev/null || true
+          echo "Cargo.toml 版本已修改"
+
+      - name: 禁用 PostHog 分析
+        run: |
+          # 在前端代码中将 PostHog 初始化禁用
+          find apps/desktop/src -name "analytics.ts" -o -name "analytics.tsx" | while read f; do
+            echo "找到分析文件: $f"
+            # 注释掉 PostHog 相关代码
+            sed -i 's/posthog-js/\/\/ posthog-js-disabled/g' "$(dirname $f)/../package.json" 2>/dev/null || true
+          done
+
+      - name: 提交汉化修改
+        run: |
+          git add -A
+          CHANGES=$(git diff --cached --stat)
+          if [ -n "$CHANGES" ]; then
+            CN_VERSION="${{ steps.version.outputs.version }}"
+            git commit -m "feat: 汉化补丁 - ${CN_VERSION}
+            
+            - 添加 i18next 国际化框架
+            - 完整中文翻译
+            - 修改 Tauri 配置（中文安装包、禁用自动更新）
+            - 去除登录限制
+            - 去除付费功能限制
+            - 禁用遥测分析"
+            git push origin main
+            echo "汉化修改已提交"
+          else
+            echo "没有需要提交的修改"
+          fi
+
+  build-windows:
+    name: 构建 Windows 汉化版
+    needs: apply-patches
+    if: (needs.apply-patches.result == 'success' || needs.apply-patches.outputs.version != '') && (github.event.inputs.build_windows == 'true' || github.event.inputs.build_windows == '')
+    runs-on: windows-latest
+    timeout-minutes: 120
+    outputs:
+      version: ${{ needs.apply-patches.outputs.version }}
+    env:
+      RUST_BACKTRACE: 1
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PAT_TOKEN || github.token }}
+
+      - name: 安装 Rust 工具链
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: "1.88"
+          targets: x86_64-pc-windows-msvc
+
+      - name: Rust 缓存
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: "apps/desktop/src-tauri -> target"
+          key: windows-cn
+
+      - name: 安装 LLVM (libclang)
+        run: |
+          choco install llvm -y
+          echo "LIBCLANG_PATH=C:\Program Files\LLVM\bin" >> $env:GITHUB_ENV
+
+      - name: 安装 pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: 安装 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: 安装 FFmpeg
+        run: |
+          Invoke-WebRequest -Uri "https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl-shared.zip" -OutFile "ffmpeg.zip"
+          Expand-Archive -Path "ffmpeg.zip" -DestinationPath "C:\ffmpeg_build" -Force
+          $extracted = Get-ChildItem -Path "C:\ffmpeg_build" -Directory -Filter "ffmpeg-*-shared" | Select-Object -First 1
+          if ($extracted) {
+            Rename-Item $extracted.FullName "ffmpeg"
+          }
+          echo "FFMPEG_DIR=C:\ffmpeg_build\ffmpeg" >> $env:GITHUB_ENV
+          echo "PATH=C:\ffmpeg_build\ffmpeg\bin;$env:PATH" >> $env:GITHUB_ENV
+          echo "FFMPEG_INCLUDE_DIR=C:\ffmpeg_build\ffmpeg\include" >> $env:GITHUB_ENV
+          echo "FFMPEG_LIB_DIR=C:\ffmpeg_build\ffmpeg\lib" >> $env:GITHUB_ENV
+        shell: pwsh
+
+      - name: 安装项目依赖
+        run: pnpm install
+
+      - name: 构建 Sidecar 二进制
+        run: pnpm build:sidecar --filter @cap/desktop
+        working-directory: apps/desktop
+
+      - name: 构建前端
+        run: pnpm build --filter @cap/desktop
+
+      - name: 构建 Tauri 应用 (Windows)
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN || github.token }}
+          FFMPEG_DIR: C:\ffmpeg_build\ffmpeg
+          FFMPEG_INCLUDE_DIR: C:\ffmpeg_build\ffmpeg\include
+          FFMPEG_LIB_DIR: C:\ffmpeg_build\ffmpeg\lib
+          LIBCLANG_PATH: C:\Program Files\LLVM\bin
+          TAURI_SIGNING_PRIVATE_KEY: ""
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ""
+        with:
+          projectPath: apps/desktop
+          tauriScript: pnpm tauri
+          tagName: v${{ needs.apply-patches.outputs.version }}
+          releaseName: "Cap 中文版 v${{ needs.apply-patches.outputs.version }}"
+          releaseBody: |
+            ## Cap 中文版 v${{ needs.apply-patches.outputs.version }}
+            
+            基于原版 [Cap v$(echo ${{ needs.apply-patches.outputs.version }} | sed 's/-cn$//')](https://github.com/CapSoftware/Cap/releases) 的汉化优化版。
+            
+            ### 特点
+            - 完整中文界面
+            - 去除登录限制，打开即用
+            - 完全免费，无任何功能限制
+            - 支持屏幕录制、窗口录制、区域录制
+            - 支持摄像头画中画
+            - 内置视频编辑器
+            - 支持多种导出格式
+          releaseDraft: false
+          prerelease: false
+
+  build-macos:
+    name: 构建 macOS 汉化版
+    needs: apply-patches
+    if: github.event.inputs.build_macos == 'true'
+    runs-on: macos-latest
+    timeout-minutes: 180
+    env:
+      RUST_BACKTRACE: 1
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PAT_TOKEN || github.token }}
+
+      - name: 安装 Rust 工具链
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: "1.88"
+          targets: x86_64-apple-darwin,aarch64-apple-darwin
+
+      - name: Rust 缓存
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: "apps/desktop/src-tauri -> target"
+          key: macos-cn
+
+      - name: 安装 pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: 安装 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: 安装 FFmpeg (macOS)
+        run: |
+          brew install ffmpeg
+
+      - name: 安装项目依赖
+        run: pnpm install
+
+      - name: 构建 Sidecar 二进制
+        run: pnpm build:sidecar --filter @cap/desktop
+        working-directory: apps/desktop
+
+      - name: 构建前端
+        run: pnpm build --filter @cap/desktop
+
+      - name: 构建 Tauri 应用 (macOS)
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN || github.token }}
+          APPLE_SIGNING_IDENTITY: ""
+          TAURI_SIGNING_PRIVATE_KEY: ""
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ""
+        with:
+          projectPath: apps/desktop
+          tauriScript: pnpm tauri
+          tagName: v${{ needs.apply-patches.outputs.version }}
+          releaseName: "Cap 中文版 v${{ needs.apply-patches.outputs.version }}"
+          releaseBody: |
+            ## Cap 中文版 v${{ needs.apply-patches.outputs.version }}
+            
+            基于原版 Cap 的汉化优化 macOS 版。
+          releaseDraft: true
+          prerelease: false
+
+  notify:
+    name: 通知构建结果
+    needs: [sync-upstream, apply-patches, build-windows]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检查状态
+        run: |
+          echo "同步状态: ${{ needs.sync-upstream.result }}"
+          echo "补丁状态: ${{ needs.apply-patches.result }}"
+          echo "Windows 构建: ${{ needs.build-windows.result }}"
+          
+          if [ "${{ needs.build-windows.result }}" = "success" ]; then
+            echo "构建成功!"
+          elif [ "${{ needs.build-windows.result }}" = "failure" ]; then
+            echo "构建失败，请检查日志"
+            exit 1
+          else
+            echo "构建未执行（可能没有新版本）"
+          fi
