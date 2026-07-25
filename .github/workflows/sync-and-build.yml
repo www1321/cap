@@ -281,11 +281,11 @@ jobs:
         run: pnpm install
 
       - name: 构建 Sidecar 二进制
-        run: pnpm build:sidecar --filter @cap/desktop
+        run: pnpm build:sidecar
         working-directory: apps/desktop
 
       - name: 构建前端
-        run: pnpm build --filter @cap/desktop
+        run: pnpm --filter @cap/desktop build
 
       - name: 构建 Tauri 应用 (Windows)
         uses: tauri-apps/tauri-action@v0
@@ -363,11 +363,11 @@ jobs:
         run: pnpm install
 
       - name: 构建 Sidecar 二进制
-        run: pnpm build:sidecar --filter @cap/desktop
+        run: pnpm build:sidecar
         working-directory: apps/desktop
 
       - name: 构建前端
-        run: pnpm build --filter @cap/desktop
+        run: pnpm --filter @cap/desktop build
 
       - name: 构建 Tauri 应用 (macOS)
         uses: tauri-apps/tauri-action@v0
