@@ -1,3 +1,4 @@
+import { I18nProvider } from "./components/I18nProvider";
 import { Route, Router, useCurrentMatches } from "@solidjs/router";
 import { QueryClient, QueryClientProvider } from "@tanstack/solid-query";
 import {
