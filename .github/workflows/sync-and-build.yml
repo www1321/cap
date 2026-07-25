@@ -229,6 +229,7 @@ jobs:
       version: ${{ needs.apply-patches.outputs.version }}
     env:
       RUST_BACKTRACE: 1
+      RUST_TARGET_TRIPLE: x86_64-pc-windows-msvc
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -263,50 +264,53 @@ jobs:
           node-version: 22
           cache: pnpm
 
-      - name: 安装 FFmpeg
-        run: |
-          Invoke-WebRequest -Uri "https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl-shared.zip" -OutFile "ffmpeg.zip"
-          Expand-Archive -Path "ffmpeg.zip" -DestinationPath "C:\ffmpeg_build" -Force
-          $extracted = Get-ChildItem -Path "C:\ffmpeg_build" -Directory -Filter "ffmpeg-*-shared" | Select-Object -First 1
-          if ($extracted) {
-            Rename-Item $extracted.FullName "ffmpeg"
-          }
-          echo "FFMPEG_DIR=C:\ffmpeg_build\ffmpeg" >> $env:GITHUB_ENV
-          echo "PATH=C:\ffmpeg_build\ffmpeg\bin;$env:PATH" >> $env:GITHUB_ENV
-          echo "FFMPEG_INCLUDE_DIR=C:\ffmpeg_build\ffmpeg\include" >> $env:GITHUB_ENV
-          echo "FFMPEG_LIB_DIR=C:\ffmpeg_build\ffmpeg\lib" >> $env:GITHUB_ENV
-        shell: pwsh
-
       - name: 安装项目依赖
         run: pnpm install --no-frozen-lockfile
 
-      - name: 构建 Sidecar 二进制
-        run: pnpm build:sidecar
-        working-directory: apps/desktop
+      - name: 创建 .env 文件
+        shell: bash
+        run: |
+          cat > .env << 'EOF'
+          appVersion=${{ needs.apply-patches.outputs.version }}
+          VITE_ENVIRONMENT=production
+          CAP_DESKTOP_SENTRY_URL=
+          NEXT_PUBLIC_WEB_URL=http://localhost:3000
+          NEXTAUTH_URL=http://localhost:3000
+          VITE_POSTHOG_KEY=
+          VITE_POSTHOG_HOST=
+          VITE_SERVER_URL=http://localhost:3000
+          RUST_TARGET_TRIPLE=x86_64-pc-windows-msvc
+          EOF
 
-      - name: 构建前端
-        run: pnpm --filter @cap/desktop build
+      - name: 运行 setup.js (下载 FFmpeg + 配置 .cargo/config.toml)
+        run: node scripts/setup.js
 
-      - name: 构建 Tauri 应用 (Windows)
-        uses: tauri-apps/tauri-action@v0
+      - name: 构建 Sidecar + 前端 + Tauri 应用
+        run: pnpm tauri:build
         env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN || github.token }}
-          FFMPEG_DIR: C:\ffmpeg_build\ffmpeg
-          FFMPEG_INCLUDE_DIR: C:\ffmpeg_build\ffmpeg\include
-          FFMPEG_LIB_DIR: C:\ffmpeg_build\ffmpeg\lib
+          FFMPEG_DIR: ${{ github.workspace }}/target/native-deps
           LIBCLANG_PATH: C:\Program Files\LLVM\bin
-          TAURI_SIGNING_PRIVATE_KEY: ""
-          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ""
+
+      - name: 上传构建产物
+        uses: actions/upload-artifact@v4
         with:
-          projectPath: apps/desktop
-          tauriScript: pnpm tauri
-          tagName: v${{ needs.apply-patches.outputs.version }}
-          releaseName: "Cap 中文版 v${{ needs.apply-patches.outputs.version }}"
-          releaseBody: |
+          name: cap-cn-windows-installer
+          path: |
+            apps/desktop/src-tauri/target/x86_64-pc-windows-msvc/release/bundle/nsis/*.exe
+            apps/desktop/src-tauri/target/release/bundle/nsis/*.exe
+          if-no-files-found: warn
+
+      - name: 创建 GitHub Release
+        if: github.event.inputs.create_release == 'true' || github.event.inputs.create_release == ''
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ needs.apply-patches.outputs.version }}
+          name: "Cap 中文版 v${{ needs.apply-patches.outputs.version }}"
+          body: |
             ## Cap 中文版 v${{ needs.apply-patches.outputs.version }}
-            
-            基于原版 [Cap v$(echo ${{ needs.apply-patches.outputs.version }} | sed 's/-cn$//')](https://github.com/CapSoftware/Cap/releases) 的汉化优化版。
-            
+
+            基于原版 [Cap](https://github.com/CapSoftware/Cap) 的汉化优化版。
+
             ### 特点
             - 完整中文界面
             - 去除登录限制，打开即用
@@ -315,8 +319,13 @@ jobs:
             - 支持摄像头画中画
             - 内置视频编辑器
             - 支持多种导出格式
-          releaseDraft: false
+          files: |
+            apps/desktop/src-tauri/target/x86_64-pc-windows-msvc/release/bundle/nsis/*.exe
+            apps/desktop/src-tauri/target/release/bundle/nsis/*.exe
+          draft: false
           prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN || github.token }}
 
   build-macos:
     name: 构建 macOS 汉化版
