@@ -278,7 +278,7 @@ jobs:
         shell: pwsh
 
       - name: 安装项目依赖
-        run: pnpm install
+        run: pnpm install --no-frozen-lockfile
 
       - name: 构建 Sidecar 二进制
         run: pnpm build:sidecar
@@ -360,7 +360,7 @@ jobs:
           brew install ffmpeg
 
       - name: 安装项目依赖
-        run: pnpm install
+        run: pnpm install --no-frozen-lockfile
 
       - name: 构建 Sidecar 二进制
         run: pnpm build:sidecar
